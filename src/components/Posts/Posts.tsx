@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useState } from "react";
-import { connect } from "react-redux";
 import { PostCard } from "../PostCard/PostCard";
 import Loader from "../Loader/Loader";
 import { PostsActionsCreator } from "../../redux/actions/index";
@@ -7,7 +6,7 @@ import { dispatchStore } from "../../redux/store";
 import { useSelector } from "react-redux";
 import "./Posts.scss";
 
-const Posts = React.memo(() => {
+const Posts: FC = React.memo(() => {
   const [postsList, setPostsList] = useState<Post[]>([]);
 
   const { posts, isLoading } = useSelector((state: initialState) => state);

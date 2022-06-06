@@ -36,6 +36,7 @@ const EditPostPage = () => {
       body: editBody,
     };
     dispatchStore(PostsActionsCreator.editPost(editedPost, currentPost.id));
+    dispatchStore(PostsActionsCreator.fetchPosts());
     navigate("/");
   };
 
