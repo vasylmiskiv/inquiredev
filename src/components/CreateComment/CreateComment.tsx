@@ -5,17 +5,15 @@ import { PostsActionsCreator } from "../../redux/actions";
 import { dispatchStore } from "../../redux/store";
 import { v4 as uuidv4 } from "uuid";
 import "./CreateComment.scss";
-import { useSelector } from "react-redux";
 
 const CreateComment = () => {
   const [commentBody, commentSetBody] = useState("");
 
   const { id } = useParams();
 
-  const { comments, isLoading } = useSelector((state: initialState) => state);
-
   const onSubmitComment = (e: React.FormEvent) => {
     e.preventDefault();
+
     const newComment: CommentItem = {
       id: uuidv4(),
       postId: id,
@@ -23,6 +21,7 @@ const CreateComment = () => {
       timestamp: new Date(),
     };
     dispatchStore(PostsActionsCreator.addNewComment(newComment));
+    commentSetBody("");
   };
 
   return (
