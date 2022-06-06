@@ -74,14 +74,16 @@ export const PostCard: FC<Props> = ({ post }) => {
           </Typography>
         </CardContent>
 
-        <CardActions className="card-actions" >
+        <CardActions className="card-actions">
           <Link to={`/post/${post.id}`} className="card-view-post">
-            <Button size="medium" variant="outlined">View post</Button>
+            <Button size="medium" variant="outlined">
+              View post
+            </Button>
           </Link>
 
           <Link to={`/edit/${post.id}`}>
             <Button size="medium">
-              <ModeEditOutlinedIcon sx={{ fontSize: 25 }}  color="primary"/>
+              <ModeEditOutlinedIcon sx={{ fontSize: 25 }} color="primary" />
             </Button>
           </Link>
 

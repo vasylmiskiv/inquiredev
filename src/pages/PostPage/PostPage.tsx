@@ -1,69 +1,85 @@
-import { CardContent, Typography, CardActions, Button, Card } from "@mui/material";
-import React, { useState, useEffect } from "react";
-import { dispatchStore } from "../../redux/store";
-import { connect } from "react-redux";
-import Loader from "../../components/Loader/Loader";
-import { useParams, useNavigate } from "react-router-dom";
+import {
+  Typography,
+  TextField,
+  Button,
+  CardContent,
+  Card,
+} from "@mui/material";
+import { useState, useEffect } from "react";
 import { PostsActionsCreator } from "../../redux/actions";
-import './PostPage.scss';
+import { dispatchStore } from "../../redux/store";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { connect, useSelector } from "react-redux";
+import Loader from "../../components/Loader/Loader";
+import Comments from "../../components/Comments/Comments";
+import CreateComment from "../../components/CreateComment/CreateComment";
+import "./PostPage.scss";
 
-const PostPage = ({ currentPost, loading }: any) => {
-  const [showPost, setShowPost] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
-
+const EditPostPage = () => {
+  const [showPost, setShowPost] = useState({
+    title: "",
+    body: "",
+  });
+  const [postComments, setPostComments] = useState([]);
   const { id } = useParams();
-
   const navigate = useNavigate();
+
+  const { currentPost, isLoading } = useSelector(
+    (state: initialState) => state
+  );
 
   useEffect(() => {
     dispatchStore(PostsActionsCreator.fetchPostById(id));
-  }, [id]);
+    dispatchStore(PostsActionsCreator.fetchComments(id));
+  }, []);
 
   useEffect(() => {
-    setShowPost(currentPost)
-    setIsLoading(loading)
-  }, [currentPost, loading])
+    setShowPost(currentPost);
+  }, [currentPost]);
 
   return (
-    <>
+    <div className="show-section">
       {isLoading ? (
         <Loader />
       ) : (
-        <div className="show-section">
-            <Button
+        <div>
+          <Button
             variant="outlined"
             className="show-section-goback"
             onClick={() => navigate("/")}
           >
             Go back
           </Button>
-           <Card variant="outlined" className="show-post">
-          <CardContent>
-            <Typography variant="h5" component="div">
-              {currentPost.title}
-            </Typography>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-            {currentPost.timestamp}
-            </Typography>
-            <Typography variant="body2">
-              {currentPost.body}
-            </Typography>
-          </CardContent>
-          <Card className="show-comments" variant="outlined">
-            123
+          <Card className="show-section-post">
+            <CardContent>
+              <Typography variant="h4">Post</Typography>
+              <Card>
+                <CardContent>
+                  <Typography variant="h5">{showPost.title}</Typography>
+                  <Typography variant="body2">{showPost.body}</Typography>
+                </CardContent>
+              </Card>
+            </CardContent>
+            <Card className="show-section-comments">
+              <CardContent>
+                <Typography variant="h5">Comments:</Typography>
+                <Comments />
+              </CardContent>
+            </Card>
           </Card>
-          </Card>
+          <CreateComment />
         </div>
       )}
-    </>
+    </div>
   );
 };
 
 const mapStateToProps = (state: initialState) => {
   return {
-    currentPost: state.currentPost,
+    currenPost: state.currentPost,
     loading: state.isLoading,
   };
 };
 
-export default connect(mapStateToProps, null)(PostPage);
+export default connect(mapStateToProps, null)(EditPostPage);

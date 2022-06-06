@@ -31,7 +31,6 @@ const EditPostPage = ({ currenPost, loading }: any) => {
       ...currenPost,
       title: editTitle,
       body: editBody,
-      comments: [],
     };
     dispatchStore(PostsActionsCreator.editPost(editedPost, currenPost.id));
     navigate("/");

@@ -5,6 +5,7 @@ export const HomePage = () => {
 
   return (
     <>
+      <h1>Posts</h1>
       <CreatePost />
       <Posts />
     </>

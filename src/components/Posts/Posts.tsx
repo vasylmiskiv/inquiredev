@@ -6,13 +6,7 @@ import "./Posts.scss";
 import { PostsActionsCreator } from "../../redux/actions/index";
 import { dispatchStore } from "../../redux/store";
 
-type Props = {
-  posts: Post[];
-  fetchPostsData: () => void;
-  loading: boolean;
-};
-
-const Posts: FC<Props> = React.memo(({ posts, loading }: any) => {
+const Posts: FC = React.memo(({ posts, loading }: any) => {
   const [postsList, setPostsList] = useState<any[]>([]);
 
   useEffect(() => {
@@ -20,11 +14,8 @@ const Posts: FC<Props> = React.memo(({ posts, loading }: any) => {
   }, []);
 
   useEffect(() => {
-    console.log(posts)
-    setPostsList(posts)
-    setPostsList(posts => posts.sort())
-    console.log(posts)
-  }, [posts])
+    setPostsList(posts);
+  }, [posts]);
 
   return (
     <>

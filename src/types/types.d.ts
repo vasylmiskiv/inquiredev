@@ -2,18 +2,19 @@ interface Post {
   id: number | string;
   title: string;
   body: string;
-  comments: Comment[];
-  timestamp?: Date;
+  timestamp?: string | Date;
 }
 
 interface Comment {
-  posId: string | number;
+  id: string | number,
+  postId: string | number;
   body: string;
 }
 
 interface initialState {
   posts: Post[];
-  currentPost: Post | {};
+  currentPost: Post;
+  comments: Comment[];
   isLoading: boolean;
   error: null | string;
 }

@@ -29,9 +29,6 @@ export const CreatePost = () => {
 
   return (
     <form className="post-form" onSubmit={(e) => createPost(e)}>
-      <Typography variant="h4" component="h1" sx={{ margin: "10px 0 20px" }}>
-        Post
-      </Typography>
       <TextField
         id="outlined-basic"
         label="Post title"
