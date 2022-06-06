@@ -1,27 +1,26 @@
+import { useState, useEffect } from "react";
 import {
   Typography,
-  TextField,
   Button,
   CardContent,
   Card,
 } from "@mui/material";
-import { useState, useEffect } from "react";
 import { PostsActionsCreator } from "../../redux/actions";
 import { dispatchStore } from "../../redux/store";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { connect, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Loader from "../../components/Loader/Loader";
 import Comments from "../../components/Comments/Comments";
 import CreateComment from "../../components/CreateComment/CreateComment";
 import "./PostPage.scss";
 
-const EditPostPage = () => {
+const PostPage = () => {
   const [showPost, setShowPost] = useState({
     title: "",
     body: "",
   });
-  const [postComments, setPostComments] = useState([]);
+
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -75,11 +74,4 @@ const EditPostPage = () => {
   );
 };
 
-const mapStateToProps = (state: initialState) => {
-  return {
-    currenPost: state.currentPost,
-    loading: state.isLoading,
-  };
-};
-
-export default connect(mapStateToProps, null)(EditPostPage);
+export default PostPage;

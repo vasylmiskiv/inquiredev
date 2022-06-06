@@ -1,24 +1,22 @@
-import { TextField, Typography } from "@mui/material";
+import { TextField } from "@mui/material";
 import { useState } from "react";
 import Button from "@mui/material/Button";
-import "./CreatePost.scss";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 import { dispatchStore } from "../../redux/store";
 import { v4 as uuidv4 } from "uuid";
 import { PostsActionsCreator } from "../../redux/actions";
+import "./CreatePost.scss";
 
 export const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
-  const createPost = (e: React.FormEvent<HTMLFormElement>) => {
+  const createPost = (e: React.FormEvent) => {
     e.preventDefault();
+
     const newPost = {
       id: uuidv4(),
       title,
       body,
-      comments: [],
       timestamp: new Date(),
     };
 

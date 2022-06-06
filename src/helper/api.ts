@@ -41,4 +41,12 @@ export const API = {
     request(`/posts/${postId}`, { method: "DELETE" }),
   getCommentsByPostId: (postId: number | string | undefined) =>
     request(`/posts/${postId}?_embed=comments`),
+  postNewComment: (newComment: CommentItem) =>
+    request(`/comments`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newComment),
+    }),
 };

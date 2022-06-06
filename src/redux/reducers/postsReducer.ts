@@ -2,9 +2,9 @@ import {
   GET_POSTS_REQUEST,
   GET_POSTS_SUCCESS,
   GET_POSTS_FAILED,
-  POST_NEWPOST_SUCCESS,
-  POST_NEWPOST_REQUEST,
-  POST_NEWPOST_FAILED,
+  POST_NEW_POST_SUCCESS,
+  POST_NEW_POST_REQUEST,
+  POST_NEW_POST_FAILED,
   DELETE_POST_FAILED,
   DELETE_POST_REQUEST,
   DELETE_POST_SUCCESS,
@@ -14,6 +14,9 @@ import {
   GET_COMMENTS_FAILED,
   GET_COMMENTS_REQUEST,
   GET_COMMENTS_SUCCESS,
+  POST_NEW_COMMENT_FAILED,
+  POST_NEW_COMMENT_REQUEST,
+  POST_NEW_COMMENT_SUCCESS,
 } from "../actions/types";
 
 const initialState: initialState = {
@@ -39,7 +42,7 @@ export default function postsReducer(state = initialState, action: any) {
       return {
         ...state,
         isLoading: false,
-        posts: action.payload,
+        posts: action.payload.reverse(),
       }
     case GET_POSTS_FAILED:
       return {
@@ -64,18 +67,18 @@ export default function postsReducer(state = initialState, action: any) {
         isLoading: false,
         error: action.payload,
       }
-    case POST_NEWPOST_REQUEST:
+    case POST_NEW_POST_REQUEST:
       return {
         ...state,
         isLoading: true,
       }
-    case POST_NEWPOST_SUCCESS:
+    case POST_NEW_POST_SUCCESS:
       return {
         ...state,
         isLoading: false,
         posts: [action.payload, ...state.posts],
       }
-    case POST_NEWPOST_FAILED:
+    case POST_NEW_POST_FAILED:
       return {
         ...state,
         isLoading: false,
@@ -107,13 +110,30 @@ export default function postsReducer(state = initialState, action: any) {
       return {
         ...state,
         isLoading: false,
-        comments: action.payload
+        comments: action.payload.reverse()
       }
     case GET_COMMENTS_FAILED:
       return {
         ...state,
         isLoading: false,
         comments: []
+      }
+    case POST_NEW_COMMENT_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      }
+    case POST_NEW_COMMENT_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        comments: [action.payload, ...state.comments]
+      }
+    case POST_NEW_COMMENT_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
       }
 
     default:

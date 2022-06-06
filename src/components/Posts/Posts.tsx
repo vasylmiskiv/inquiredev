@@ -2,12 +2,15 @@ import React, { FC, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { PostCard } from "../PostCard/PostCard";
 import Loader from "../Loader/Loader";
-import "./Posts.scss";
 import { PostsActionsCreator } from "../../redux/actions/index";
 import { dispatchStore } from "../../redux/store";
+import { useSelector } from "react-redux";
+import "./Posts.scss";
 
-const Posts: FC = React.memo(({ posts, loading }: any) => {
-  const [postsList, setPostsList] = useState<any[]>([]);
+const Posts = React.memo(() => {
+  const [postsList, setPostsList] = useState<Post[]>([]);
+
+  const { posts, isLoading } = useSelector((state: initialState) => state);
 
   useEffect(() => {
     dispatchStore(PostsActionsCreator.fetchPosts());
@@ -19,7 +22,7 @@ const Posts: FC = React.memo(({ posts, loading }: any) => {
 
   return (
     <>
-      {loading ? (
+      {isLoading ? (
         <Loader />
       ) : (
         <div>
@@ -36,11 +39,4 @@ const Posts: FC = React.memo(({ posts, loading }: any) => {
   );
 });
 
-const mapStateToProps = (state: initialState) => {
-  return {
-    posts: state.posts,
-    loading: state.isLoading,
-  };
-};
-
-export default connect(mapStateToProps, null)(Posts);
+export default Posts;

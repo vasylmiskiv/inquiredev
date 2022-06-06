@@ -1,13 +1,11 @@
+import { FC, useState } from "react";
 import {
   Card,
   CardContent,
   Typography,
   CardActions,
   Button,
-  Box,
   DialogActions,
-  DialogContent,
-  DialogContentText,
   DialogTitle,
 } from "@mui/material";
 import { PostsActionsCreator } from "../../redux/actions";
@@ -15,9 +13,8 @@ import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 import { dispatchStore } from "../../redux/store";
 import { Link } from "react-router-dom";
-import { FC, useState } from "react";
-import "./PostCard.scss";
 import Dialog from "@mui/material/Dialog";
+import "./PostCard.scss";
 
 type Props = {
   post: Post;

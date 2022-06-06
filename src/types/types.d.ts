@@ -5,16 +5,17 @@ interface Post {
   timestamp?: string | Date;
 }
 
-interface Comment {
-  id: string | number,
-  postId: string | number;
+interface CommentItem {
+  id: string | number | undefined;
+  postId: string | number | undefined;
   body: string;
+  timestamp: string | Date,
 }
 
 interface initialState {
   posts: Post[];
   currentPost: Post;
-  comments: Comment[];
+  comments: CommentItem[];
   isLoading: boolean;
   error: null | string;
 }

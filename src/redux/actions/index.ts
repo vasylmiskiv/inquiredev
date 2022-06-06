@@ -2,9 +2,9 @@ import {
   GET_POSTS_REQUEST,
   GET_POSTS_SUCCESS,
   GET_POSTS_FAILED,
-  POST_NEWPOST_FAILED,
-  POST_NEWPOST_SUCCESS,
-  POST_NEWPOST_REQUEST,
+  POST_NEW_POST_FAILED,
+  POST_NEW_POST_SUCCESS,
+  POST_NEW_POST_REQUEST,
   DELETE_POST_FAILED,
   DELETE_POST_REQUEST,
   DELETE_POST_SUCCESS,
@@ -17,13 +17,17 @@ import {
   GET_COMMENTS_FAILED,
   GET_COMMENTS_REQUEST,
   GET_COMMENTS_SUCCESS,
+  POST_NEW_COMMENT_FAILED,
+  POST_NEW_COMMENT_REQUEST,
+  POST_NEW_COMMENT_SUCCESS,
 } from "./types";
-
+import { Dispatch } from "redux";
 import { API } from "../../helper/api";
+
 
 export const PostsActionsCreator = {
   fetchPosts() {
-    return async (dispatch: any) => {
+    return async (dispatch: Dispatch) => {
       try {
         dispatch(PostsActionsCreator.getPostsRequest());
         const response = await API.getPosts();
@@ -35,7 +39,7 @@ export const PostsActionsCreator = {
     };
   },
   fetchPostById(id: number | string | undefined) {
-    return async (dispatch: any) => {
+    return async (dispatch: Dispatch) => {
       try {
         dispatch(PostsActionsCreator.getPostByIdRequest());
         const response = await API.getPostById(id);
@@ -47,7 +51,7 @@ export const PostsActionsCreator = {
     };
   },
   addNewPost(newPost: Post) {
-    return async (dispatch: any) => {
+    return async (dispatch: Dispatch) => {
       try {
         dispatch(PostsActionsCreator.postNewPostRequest());
         const response = await API.postNewPost(newPost);
@@ -59,7 +63,7 @@ export const PostsActionsCreator = {
     };
   },
   editPost(editedPost: Post, id: string | number) {
-    return async (dispatch: any) => {
+    return async (dispatch: Dispatch) => {
       try {
         dispatch(PostsActionsCreator.putPostRequest());
         const response = await API.putEditedPost(editedPost, id);
@@ -71,7 +75,7 @@ export const PostsActionsCreator = {
     };
   },
   deletePost(postId: number | string) {
-    return async (dispatch: any) => {
+    return async (dispatch: Dispatch) => {
       try {
         dispatch(PostsActionsCreator.deleteCurrentPostRequest());
         await API.deleteCurrentPost(postId);
@@ -83,7 +87,7 @@ export const PostsActionsCreator = {
     };
   },
   fetchComments(postId: number | string | undefined) {
-    return async (dispatch: any) => {
+    return async (dispatch: Dispatch) => {
       try {
         dispatch(PostsActionsCreator.getCommentsByPostIdRequest());
         const response = await API.getCommentsByPostId(postId);
@@ -93,29 +97,40 @@ export const PostsActionsCreator = {
       }
     };
   },
+  addNewComment(newComment: CommentItem) {
+    return async (dispatch: Dispatch) => {
+      try {
+        dispatch(PostsActionsCreator.postNewCommentRequest());
+        const response = await API.postNewComment(newComment);
+        dispatch(PostsActionsCreator.postNewCommentSuccess(response));
+      } catch (error) {
+        console.error(error);
+        dispatch(PostsActionsCreator.postNewPostFailed(error));
+      }
+    };
+  },
 
-  //actions
   getPostsRequest: () => ({ type: GET_POSTS_REQUEST }),
   getPostsSuccess: (payload: Post[]) => ({ type: GET_POSTS_SUCCESS, payload }),
-  getPostsFailed: (error: any) => ({ type: GET_POSTS_FAILED, payload: error }),
+  getPostsFailed: (error: string) => ({ type: GET_POSTS_FAILED, payload: error }),
 
   getPostByIdRequest: () => ({ type: GET_POST_BY_ID_REQUEST }),
   getPostByIdSuccess: (currentPost: Post) => ({
     type: GET_POST_BY_ID_SUCCESS,
     payload: currentPost,
   }),
-  getPostByIdFailed: (error: any) => ({
+  getPostByIdFailed: (error: string) => ({
     type: GET_POST_BY_ID_FAILED,
     payload: error,
   }),
 
-  postNewPostRequest: () => ({ type: POST_NEWPOST_REQUEST }),
+  postNewPostRequest: () => ({ type: POST_NEW_POST_REQUEST }),
   postNewPostSuccess: (newPost: Post) => ({
-    type: POST_NEWPOST_SUCCESS,
+    type: POST_NEW_POST_SUCCESS,
     payload: newPost,
   }),
-  postNewPostFailed: (error: any) => ({
-    type: POST_NEWPOST_FAILED,
+  postNewPostFailed: (error: string) => ({
+    type: POST_NEW_POST_FAILED,
     payload: error,
   }),
 
@@ -124,14 +139,14 @@ export const PostsActionsCreator = {
     type: PUT_POST_SUCCESS,
     payload: editedPost,
   }),
-  putPostFailed: (error: any) => ({ type: PUT_POST_FAILED, payload: error }),
+  putPostFailed: (error: string) => ({ type: PUT_POST_FAILED, payload: error }),
 
   deleteCurrentPostRequest: () => ({ type: DELETE_POST_REQUEST }),
   deleteCurrentPostSuccess: (postId: number | string | undefined) => ({
     type: DELETE_POST_SUCCESS,
     payload: postId,
   }),
-  deleteCurrentPostFailed: (error: any) => ({
+  deleteCurrentPostFailed: (error: string) => ({
     type: DELETE_POST_FAILED,
     payload: error,
   }),
@@ -143,5 +158,15 @@ export const PostsActionsCreator = {
   }),
   getCommentsByPostIdFailed: () => ({
     type: GET_COMMENTS_FAILED,
+  }),
+
+  postNewCommentRequest: () => ({ type: POST_NEW_COMMENT_REQUEST }),
+  postNewCommentSuccess: (newComment: CommentItem) => ({
+    type: POST_NEW_COMMENT_SUCCESS,
+    payload: newComment,
+  }),
+  postNewCommentFailed: (error: string) => ({
+    type: POST_NEW_COMMENT_FAILED,
+    payload: error,
   }),
 };

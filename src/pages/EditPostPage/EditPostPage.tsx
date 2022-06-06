@@ -1,14 +1,14 @@
-import { Typography, TextField, Button } from "@mui/material";
 import { useState, useEffect } from "react";
+import { TextField, Button } from "@mui/material";
 import { PostsActionsCreator } from "../../redux/actions";
 import { dispatchStore } from "../../redux/store";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { connect } from "react-redux";
-import "./EditForm.scss";
 import Loader from "../../components/Loader/Loader";
+import { useSelector } from "react-redux";
+import "./EditForm.scss";
 
-const EditPostPage = ({ currenPost, loading }: any) => {
+const EditPostPage = () => {
   const [editTitle, setEditTitle] = useState("");
   const [editBody, setEditBody] = useState("");
 
@@ -16,29 +16,31 @@ const EditPostPage = ({ currenPost, loading }: any) => {
 
   const navigate = useNavigate();
 
+  const {currentPost, isLoading} = useSelector((state: initialState) => state)
+
   useEffect(() => {
     dispatchStore(PostsActionsCreator.fetchPostById(id));
   }, [id]);
 
   useEffect(() => {
-    setEditTitle(currenPost.title);
-    setEditBody(currenPost.body);
-  }, [currenPost]);
+    setEditTitle(currentPost.title);
+    setEditBody(currentPost.body);
+  }, [currentPost]);
 
-  const onEditPost = (e: any) => {
+  const onEditPost = (e: React.FormEvent) => {
     e.preventDefault();
     const editedPost = {
-      ...currenPost,
+      ...currentPost,
       title: editTitle,
       body: editBody,
     };
-    dispatchStore(PostsActionsCreator.editPost(editedPost, currenPost.id));
+    dispatchStore(PostsActionsCreator.editPost(editedPost, currentPost.id));
     navigate("/");
   };
 
   return (
     <>
-      {loading ? (
+      {isLoading ? (
         <Loader />
       ) : (
         <div className="edit-section">
@@ -55,7 +57,7 @@ const EditPostPage = ({ currenPost, loading }: any) => {
               label="Edit title"
               variant="outlined"
               value={editTitle}
-              onChange={(e: any) => setEditTitle(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEditTitle(e.target.value)}
             />
             <TextField
               label="Edit post"
@@ -63,7 +65,7 @@ const EditPostPage = ({ currenPost, loading }: any) => {
               rows={4}
               variant="outlined"
               value={editBody}
-              onChange={(e: any) => setEditBody(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEditBody(e.target.value)}
             />
             <Button variant="contained" color="primary" type="submit">
               Edit a post
@@ -75,11 +77,6 @@ const EditPostPage = ({ currenPost, loading }: any) => {
   );
 };
 
-const mapStateToProps = (state: initialState) => {
-  return {
-    currenPost: state.currentPost,
-    loading: state.isLoading,
-  };
-};
 
-export default connect(mapStateToProps, null)(EditPostPage);
+
+export default EditPostPage;

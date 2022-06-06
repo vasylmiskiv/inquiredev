@@ -1,21 +1,10 @@
 import { useEffect, useState } from "react";
-import { dispatchStore } from "../../redux/store";
 import { useSelector } from "react-redux";
-import { PostsActionsCreator } from "../../redux/actions";
-import {
-  CardContent,
-  Typography,
-  CardActions,
-  Button,
-  Card,
-} from "@mui/material";
 import { Comment } from "../Comment/Comment";
-import { useParams } from "react-router";
-import Loader from "../../components/Loader/Loader";
 import "./Comments.scss";
 
 const Comments: React.FC = () => {
-  const [commentList, setCommentList] = useState<Comment[]>([]);
+  const [commentList, setCommentList] = useState<CommentItem[]>([]);
 
   const { comments, isLoading } = useSelector((state: initialState) => state);
 
@@ -27,7 +16,7 @@ const Comments: React.FC = () => {
     <div className="comments">
       {commentList.length ? (
         <ul className="comments-list">
-          {comments.map((comment) => (
+          {comments.map((comment: CommentItem) => (
             <li key={comment.id} className="comments-item">
               <Comment comment={comment} />
             </li>
