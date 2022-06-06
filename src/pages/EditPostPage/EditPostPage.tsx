@@ -29,12 +29,14 @@ const EditPostPage = () => {
 
   const onEditPost = (e: React.FormEvent) => {
     e.preventDefault();
+    
     const editedPost = {
       ...currentPost,
       title: editTitle,
       body: editBody,
     };
     dispatchStore(PostsActionsCreator.editPost(editedPost, currentPost.id));
+    dispatchStore(PostsActionsCreator.fetchPosts());
     navigate("/");
   };
 
