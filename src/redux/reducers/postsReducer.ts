@@ -22,9 +22,9 @@ import {
 const initialState: initialState = {
   posts: [],
   currentPost: {
-    id: '',
-    title: '',
-    body: ''
+    id: "",
+    title: "",
+    body: "",
   },
   comments: [],
   isLoading: false,
@@ -37,104 +37,104 @@ export default function postsReducer(state = initialState, action: any) {
       return {
         ...state,
         isLoading: true,
-      }
+      };
     case GET_POSTS_SUCCESS:
       return {
         ...state,
         isLoading: false,
         posts: action.payload.reverse(),
-      }
+      };
     case GET_POSTS_FAILED:
       return {
         ...state,
         isLoading: false,
         error: action.payload,
-      }
+      };
     case GET_POST_BY_ID_REQUEST:
       return {
         ...state,
         isLoading: true,
-      }
+      };
     case GET_POST_BY_ID_SUCCESS:
       return {
         ...state,
         isLoading: false,
         currentPost: action.payload,
-      }
+      };
     case GET_POST_BY_ID_FAILED:
       return {
         ...state,
         isLoading: false,
         error: action.payload,
-      }
+      };
     case POST_NEW_POST_REQUEST:
       return {
         ...state,
         isLoading: true,
-      }
+      };
     case POST_NEW_POST_SUCCESS:
       return {
         ...state,
         isLoading: false,
         posts: [action.payload, ...state.posts],
-      }
+      };
     case POST_NEW_POST_FAILED:
       return {
         ...state,
         isLoading: false,
         error: action.payload,
-      }
+      };
     case DELETE_POST_REQUEST:
       return {
         ...state,
         isLoading: true,
-      }
+      };
     case DELETE_POST_SUCCESS:
       return {
         ...state,
         isLoading: false,
         posts: state.posts.filter((post: Post) => post.id !== action.payload),
-      }
+      };
     case DELETE_POST_FAILED:
       return {
         ...state,
         isLoading: false,
         error: action.payload,
-      }
+      };
     case GET_COMMENTS_REQUEST:
       return {
         ...state,
         isLoading: true,
-      }
+      };
     case GET_COMMENTS_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        comments: action.payload.reverse()
-      }
+        comments: action.payload.reverse(),
+      };
     case GET_COMMENTS_FAILED:
       return {
         ...state,
         isLoading: false,
-        comments: []
-      }
+        comments: [],
+      };
     case POST_NEW_COMMENT_REQUEST:
       return {
         ...state,
         isLoading: true,
-      }
+      };
     case POST_NEW_COMMENT_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        comments: [action.payload, ...state.comments]
-      }
+        comments: [action.payload, ...state.comments],
+      };
     case POST_NEW_COMMENT_FAILED:
       return {
         ...state,
         isLoading: false,
         error: action.payload,
-      }
+      };
 
     default:
       return state;

@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HomePage } from "./pages/HomePage/HomePage";
-import PostPage  from "./pages/PostPage/PostPage";
+import PostPage from "./pages/PostPage/PostPage";
 import EditPostPage from "./pages/EditPostPage/EditPostPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import { Provider } from "react-redux";

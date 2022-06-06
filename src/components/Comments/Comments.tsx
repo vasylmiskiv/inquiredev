@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { PostsActionsCreator } from "../../redux/actions";
 import { dispatchStore } from "../../redux/store";
 import { Comment } from "../Comment/Comment";
-import Loader from '../Loader/Loader';
+import Loader from "../Loader/Loader";
 import "./Comments.scss";
 
 const Comments: React.FC = () => {
@@ -16,7 +16,7 @@ const Comments: React.FC = () => {
 
   useEffect(() => {
     dispatchStore(PostsActionsCreator.fetchComments(id));
-  }, [])
+  }, []);
 
   useEffect(() => {
     setCommentList(comments);

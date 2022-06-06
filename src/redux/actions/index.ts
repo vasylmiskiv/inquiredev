@@ -24,7 +24,6 @@ import {
 import { Dispatch } from "redux";
 import { API } from "../../helper/api";
 
-
 export const PostsActionsCreator = {
   fetchPosts() {
     return async (dispatch: Dispatch) => {
@@ -91,7 +90,9 @@ export const PostsActionsCreator = {
       try {
         dispatch(PostsActionsCreator.getCommentsByPostIdRequest());
         const response = await API.getCommentsByPostId(postId);
-        dispatch(PostsActionsCreator.getCommentsByPostIdSuccess(response.comments));
+        dispatch(
+          PostsActionsCreator.getCommentsByPostIdSuccess(response.comments)
+        );
       } catch (error) {
         dispatch(PostsActionsCreator.getCommentsByPostIdFailed());
       }
@@ -112,7 +113,10 @@ export const PostsActionsCreator = {
 
   getPostsRequest: () => ({ type: GET_POSTS_REQUEST }),
   getPostsSuccess: (payload: Post[]) => ({ type: GET_POSTS_SUCCESS, payload }),
-  getPostsFailed: (error: string) => ({ type: GET_POSTS_FAILED, payload: error }),
+  getPostsFailed: (error: string) => ({
+    type: GET_POSTS_FAILED,
+    payload: error,
+  }),
 
   getPostByIdRequest: () => ({ type: GET_POST_BY_ID_REQUEST }),
   getPostByIdSuccess: (currentPost: Post) => ({

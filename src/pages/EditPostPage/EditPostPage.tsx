@@ -16,7 +16,9 @@ const EditPostPage = () => {
 
   const navigate = useNavigate();
 
-  const {currentPost, isLoading} = useSelector((state: initialState) => state)
+  const { currentPost, isLoading } = useSelector(
+    (state: initialState) => state
+  );
 
   useEffect(() => {
     dispatchStore(PostsActionsCreator.fetchPostById(id));
@@ -29,7 +31,7 @@ const EditPostPage = () => {
 
   const onEditPost = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const editedPost = {
       ...currentPost,
       title: editTitle,
@@ -59,7 +61,9 @@ const EditPostPage = () => {
               label="Edit title"
               variant="outlined"
               value={editTitle}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEditTitle(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setEditTitle(e.target.value)
+              }
             />
             <TextField
               label="Edit post"
@@ -67,7 +71,9 @@ const EditPostPage = () => {
               rows={4}
               variant="outlined"
               value={editBody}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEditBody(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setEditBody(e.target.value)
+              }
             />
             <Button variant="contained" color="primary" type="submit">
               Edit a post
@@ -78,7 +84,5 @@ const EditPostPage = () => {
     </>
   );
 };
-
-
 
 export default EditPostPage;

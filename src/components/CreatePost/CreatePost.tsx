@@ -18,7 +18,7 @@ export const CreatePost = () => {
       id: uuidv4(),
       title,
       body,
-      timestamp: moment().format('lll'),
+      timestamp: moment().format("lll"),
     };
 
     dispatchStore(PostsActionsCreator.addNewPost(newPost));

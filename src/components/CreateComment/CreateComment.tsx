@@ -7,7 +7,6 @@ import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
 import "./CreateComment.scss";
 
-
 const CreateComment = () => {
   const [commentBody, commentSetBody] = useState("");
 
@@ -20,7 +19,7 @@ const CreateComment = () => {
       id: uuidv4(),
       postId: id,
       body: commentBody,
-      timestamp: moment().format('lll'),
+      timestamp: moment().format("lll"),
     };
     dispatchStore(PostsActionsCreator.addNewComment(newComment));
     commentSetBody("");

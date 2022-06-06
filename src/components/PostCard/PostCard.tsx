@@ -44,8 +44,8 @@ export const PostCard: FC<Props> = ({ post }) => {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <DialogTitle id="alert-dialog-title">
-            {`Do you really want to delete ${post.title} post?`}
+          <DialogTitle>
+            Do you really want to delete <span>{post.title}</span> post?
           </DialogTitle>
           <DialogActions>
             <Button onClick={handleCloseDialog}>Disagree</Button>

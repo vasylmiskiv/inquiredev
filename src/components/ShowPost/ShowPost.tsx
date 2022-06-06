@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Button, Card, CardContent, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { PostsActionsCreator } from "../../redux/actions";
 import { dispatchStore } from "../../redux/store";
-import Loader from "../Loader/Loader";
 import "./ShowPost.scss";
 
 const ShowPost = () => {
@@ -29,11 +28,15 @@ const ShowPost = () => {
       </Button>
       <Card className="show-section-post">
         <CardContent>
-            <Typography sx={{ fontSize: 12, marginTop: '10px' }} color="text.secondary" gutterBottom>
-              Post ID: {id}
-            </Typography>
-            <Typography variant="h5">{currentPost.title}</Typography>
-            <Typography variant="body2">{currentPost.body}</Typography>
+          <Typography
+            sx={{ fontSize: 12, marginTop: "10px" }}
+            color="text.secondary"
+            gutterBottom
+          >
+            Post ID: {id}
+          </Typography>
+          <Typography variant="h5">{currentPost.title}</Typography>
+          <Typography variant="body2">{currentPost.body}</Typography>
         </CardContent>
       </Card>
     </div>
