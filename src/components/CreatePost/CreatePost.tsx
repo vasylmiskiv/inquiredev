@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import { dispatchStore } from "../../redux/store";
 import { v4 as uuidv4 } from "uuid";
 import { PostsActionsCreator } from "../../redux/actions";
+import moment from "moment";
 import "./CreatePost.scss";
 
 export const CreatePost = () => {
@@ -17,7 +18,7 @@ export const CreatePost = () => {
       id: uuidv4(),
       title,
       body,
-      timestamp: new Date(),
+      timestamp: moment().format('lll'),
     };
 
     dispatchStore(PostsActionsCreator.addNewPost(newPost));

@@ -28,7 +28,6 @@ const Comments: React.FC = () => {
         <Loader />
       ) : (
         <div className="comments">
-          <h3>Comments:</h3>
           {commentList.length ? (
             <ul className="comments-list">
               {comments.map((comment: CommentItem) => (

@@ -91,7 +91,6 @@ export const PostsActionsCreator = {
       try {
         dispatch(PostsActionsCreator.getCommentsByPostIdRequest());
         const response = await API.getCommentsByPostId(postId);
-        console.log(response)
         dispatch(PostsActionsCreator.getCommentsByPostIdSuccess(response.comments));
       } catch (error) {
         dispatch(PostsActionsCreator.getCommentsByPostIdFailed());

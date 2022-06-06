@@ -4,7 +4,9 @@ import { useParams } from "react-router-dom";
 import { PostsActionsCreator } from "../../redux/actions";
 import { dispatchStore } from "../../redux/store";
 import { v4 as uuidv4 } from "uuid";
+import moment from "moment";
 import "./CreateComment.scss";
+
 
 const CreateComment = () => {
   const [commentBody, commentSetBody] = useState("");
@@ -18,7 +20,7 @@ const CreateComment = () => {
       id: uuidv4(),
       postId: id,
       body: commentBody,
-      timestamp: new Date(),
+      timestamp: moment().format('lll'),
     };
     dispatchStore(PostsActionsCreator.addNewComment(newComment));
     commentSetBody("");

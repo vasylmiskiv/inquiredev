@@ -11,12 +11,17 @@ import "./PostPage.scss";
 import CreateComment from "../../components/CreateComment/CreateComment";
 
 const PostPage = () => {
+
+  const { id } = useParams();
+
   return (
-    <div>
+    <>
+      <h1>Show post</h1>
       <ShowPost />
-      <Comments />
       <CreateComment />
-    </div>
+      <h3>Comments:</h3>
+      <Comments />
+    </>
   );
 };
 
