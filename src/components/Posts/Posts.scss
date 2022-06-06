@@ -5,4 +5,10 @@
     list-style-type: none;
     margin-top: 25px;
   }
+
+  &-empty {
+    padding: 100px;
+    text-align: center;
+    color: rgb(90, 90, 90);
+  }
 }

@@ -25,15 +25,19 @@ const Posts = React.memo(() => {
       {isLoading ? (
         <Loader />
       ) : (
-        <div>
-          <ul className="list">
-            {postsList.map((post: Post) => (
-              <li className="list-item" key={post.id}>
-                <PostCard post={post} />
-              </li>
-            ))}
-          </ul>
-        </div>
+        <>
+          {postsList.length ? (
+            <ul className="list">
+              {postsList.map((post: Post) => (
+                <li className="list-item" key={post.id}>
+                  <PostCard post={post} />
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <h2 className="list-empty">List is empty</h2>
+          )}
+        </>
       )}
     </>
   );
