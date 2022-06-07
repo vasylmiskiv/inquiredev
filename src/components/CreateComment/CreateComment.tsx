@@ -8,32 +8,54 @@ import moment from "moment";
 import "./CreateComment.scss";
 
 export const CreateComment: React.FC = () => {
-  const [commentBody, commentSetBody] = useState("");
+  const [comment, setComment] = useState("");
+  const [textLimit, setTextLimit] = useState({ comment: 8 });
+  const [invalidForm, setInvalidForm] = useState(false);
+
+  const isInvalidInput = (inputLength: number, textLimit: number) => {
+    return inputLength < textLimit && true;
+  };
 
   const { id } = useParams();
 
   const onSubmitComment = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const newComment: CommentItem = {
-      id: uuidv4(),
-      postId: id,
-      body: commentBody,
-      timestamp: moment().format("lll"),
-    };
-    dispatchStore(PostsActionsCreator.addNewComment(newComment));
-    commentSetBody("");
+    if (isInvalidInput(comment.length, textLimit.comment)) {
+      setInvalidForm(true);
+    } else {
+      const newComment: CommentItem = {
+        id: uuidv4(),
+        postId: id,
+        body: comment,
+        timestamp: moment().format("lll"),
+      };
+
+      setInvalidForm(false);
+      dispatchStore(PostsActionsCreator.addNewComment(newComment));
+      setComment("");
+    }
   };
 
   return (
     <form className="comment-form" onSubmit={(e) => onSubmitComment(e)}>
       <TextField
+        error={
+          invalidForm &&
+          isInvalidInput(comment.length, textLimit.comment) &&
+          true
+        }
         label="Write a comment..."
         multiline
         rows={4}
         variant="outlined"
-        value={commentBody}
-        onChange={(e) => commentSetBody(e.target.value)}
+        value={comment}
+        onChange={(e) => setComment(e.target.value)}
+        helperText={
+          invalidForm &&
+          isInvalidInput(comment.length, textLimit.comment) &&
+          `At least ${textLimit.comment} characters`
+        }
       />
       <Button variant="contained" color="success" type="submit">
         Send a comment

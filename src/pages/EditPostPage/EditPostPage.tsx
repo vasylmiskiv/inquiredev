@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Loader } from '../../components/Loader/Loader';
 import { useSelector } from "react-redux";
-import "./EditForm.scss";
+import "./EditPostPage.scss";
 
 export const EditPostPage: React.FC = () => {
   const [editTitle, setEditTitle] = useState("");

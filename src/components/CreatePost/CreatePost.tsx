@@ -10,38 +10,67 @@ import "./CreatePost.scss";
 export const CreatePost: React.FC = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+  const [textLimit, setTextLimit] = useState({ title: 8, body: 12 });
+  const [invalidForm, setInvalidForm] = useState(false);
+
+  const isInvalidInput = (inputLength: number, textLimit: number) => {
+    return inputLength < textLimit && true;
+  };
 
   const createPost = (e: React.FormEvent) => {
     e.preventDefault();
+    if (
+      isInvalidInput(title.length, textLimit.title) ||
+      isInvalidInput(body.length, textLimit.body)
+    ) {
+      setInvalidForm(true);
+    } else {
+      const newPost = {
+        id: uuidv4(),
+        title,
+        body,
+        timestamp: moment().format("lll"),
+      };
 
-    const newPost = {
-      id: uuidv4(),
-      title,
-      body,
-      timestamp: moment().format("lll"),
-    };
-
-    dispatchStore(PostsActionsCreator.addNewPost(newPost));
-    setTitle("");
-    setBody("");
+      setInvalidForm(false);
+      dispatchStore(PostsActionsCreator.addNewPost(newPost));
+      setTitle("");
+      setBody("");
+    }
   };
 
   return (
     <form className="post-form" onSubmit={(e) => createPost(e)}>
       <TextField
+        error={
+          invalidForm && isInvalidInput(title.length, textLimit.title) && true
+        }
         id="outlined-basic"
         label="Post title"
         variant="outlined"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
+        helperText={
+          invalidForm &&
+          isInvalidInput(title.length, textLimit.title) &&
+          `At least ${textLimit.title} characters`
+        }
       />
       <TextField
+        error={
+          invalidForm && isInvalidInput(body.length, textLimit.body) && true
+        }
         label="Write something..."
         multiline
         rows={4}
         variant="outlined"
         value={body}
         onChange={(e) => setBody(e.target.value)}
+        helperText={
+          invalidForm &&
+          isInvalidInput(body.length, textLimit.body) &&
+          `At least ${textLimit.body} characters`
+        }
       />
       <Button variant="contained" color="success" type="submit">
         Create a post

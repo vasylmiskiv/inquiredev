@@ -104,7 +104,7 @@ export default function postsReducer(state = initialState, action: any) {
       return {
         ...state,
         isLoading: false,
-        comments: action.payload.reverse(),
+        comments: action.payload.reverse().filter((comment: CommentItem) => comment.body),
       };
     case GET_COMMENTS_FAILED:
       return {
