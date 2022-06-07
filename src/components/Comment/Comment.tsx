@@ -1,13 +1,13 @@
+import React from "react";
 import Card from "@mui/material/Card";
-import "./Comment.scss";
-import { FC } from "react";
 import { CardContent, Typography } from "@mui/material";
+import "./Comment.scss";
 
 type Props = {
   comment: CommentItem;
 };
 
-export const Comment: FC<Props> = ({ comment }) => {
+export const Comment: React.FC<Props> = ({ comment }) => {
   return (
     <>
       <Card className="comment" variant="outlined">
@@ -18,8 +18,13 @@ export const Comment: FC<Props> = ({ comment }) => {
             gutterBottom
           >
             <div>
-              {comment.timestamp &&
-                comment.timestamp.toLocaleString("en-GB", { timeZone: "UTC" })}
+              {comment.timestamp && (
+                <div>
+                  {comment.timestamp.toLocaleString("en-GB", {
+                    timeZone: "UTC",
+                  })}
+                </div>
+              )}
             </div>
           </Typography>
           <Typography variant="h5" component="div">

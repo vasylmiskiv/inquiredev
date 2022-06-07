@@ -1,5 +1,5 @@
 import { TextField, Button } from "@mui/material";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { PostsActionsCreator } from "../../redux/actions";
 import { dispatchStore } from "../../redux/store";
@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
 import "./CreateComment.scss";
 
-const CreateComment = () => {
+export const CreateComment: React.FC = () => {
   const [commentBody, commentSetBody] = useState("");
 
   const { id } = useParams();
@@ -41,5 +41,3 @@ const CreateComment = () => {
     </form>
   );
 };
-
-export default CreateComment;

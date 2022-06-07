@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { TextField, Button } from "@mui/material";
 import { PostsActionsCreator } from "../../redux/actions";
 import { dispatchStore } from "../../redux/store";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import Loader from "../../components/Loader/Loader";
+import { Loader } from '../../components/Loader/Loader';
 import { useSelector } from "react-redux";
 import "./EditForm.scss";
 
-const EditPostPage = () => {
+export const EditPostPage: React.FC = () => {
   const [editTitle, setEditTitle] = useState("");
   const [editBody, setEditBody] = useState("");
 
@@ -84,5 +84,3 @@ const EditPostPage = () => {
     </>
   );
 };
-
-export default EditPostPage;

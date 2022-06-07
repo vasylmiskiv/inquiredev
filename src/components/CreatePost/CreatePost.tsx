@@ -1,5 +1,5 @@
 import { TextField } from "@mui/material";
-import { useState } from "react";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import { dispatchStore } from "../../redux/store";
 import { v4 as uuidv4 } from "uuid";
@@ -7,7 +7,7 @@ import { PostsActionsCreator } from "../../redux/actions";
 import moment from "moment";
 import "./CreatePost.scss";
 
-export const CreatePost = () => {
+export const CreatePost: React.FC = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 

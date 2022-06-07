@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardContent,
@@ -20,7 +20,7 @@ type Props = {
   post: Post;
 };
 
-export const PostCard: FC<Props> = ({ post }) => {
+export const PostCard: React.FC<Props> = ({ post }) => {
   const [dialogModal, setDialogModal] = useState(false);
 
   const handleOpenDialog = () => {

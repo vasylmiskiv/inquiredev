@@ -1,9 +1,10 @@
+import React from 'react';
 import Comments from "../../components/Comments/Comments";
-import ShowPost from "../../components/ShowPost/ShowPost";
+import { ShowPost } from "../../components/ShowPost/ShowPost";
 import "./PostPage.scss";
-import CreateComment from "../../components/CreateComment/CreateComment";
+import { CreateComment } from "../../components/CreateComment/CreateComment";
 
-const PostPage = () => {
+export const PostPage: React.FC = () => {
 
   return (
     <>
@@ -16,4 +17,4 @@ const PostPage = () => {
   );
 };
 
-export default PostPage;
+

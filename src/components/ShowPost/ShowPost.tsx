@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { Button, Card, CardContent, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -6,7 +6,7 @@ import { PostsActionsCreator } from "../../redux/actions";
 import { dispatchStore } from "../../redux/store";
 import "./ShowPost.scss";
 
-const ShowPost = () => {
+export const ShowPost: React.FC = () => {
   const { currentPost } = useSelector((state: initialState) => state);
 
   const { id } = useParams();
@@ -42,5 +42,3 @@ const ShowPost = () => {
     </div>
   );
 };
-
-export default ShowPost;

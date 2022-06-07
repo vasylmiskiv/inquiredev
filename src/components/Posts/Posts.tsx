@@ -1,12 +1,12 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PostCard } from "../PostCard/PostCard";
-import Loader from "../Loader/Loader";
+import { Loader } from "../Loader/Loader";
 import { PostsActionsCreator } from "../../redux/actions/index";
 import { dispatchStore } from "../../redux/store";
 import { useSelector } from "react-redux";
 import "./Posts.scss";
 
-const Posts: FC = React.memo(() => {
+export const Posts: React.FC = React.memo(() => {
   const [postsList, setPostsList] = useState<Post[]>([]);
 
   const { posts, isLoading } = useSelector((state: initialState) => state);
@@ -41,5 +41,3 @@ const Posts: FC = React.memo(() => {
     </>
   );
 });
-
-export default Posts;
