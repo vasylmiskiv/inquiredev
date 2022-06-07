@@ -9,21 +9,24 @@ type Props = {
 
 export const Comment: FC<Props> = ({ comment }) => {
   return (
-    <Card className="comment" variant="outlined">
-      <CardContent>
-        <Typography
-          sx={{ fontSize: 12, marginTop: "10px" }}
-          color="text.secondary"
-          gutterBottom
-        >
-          <div>
-            {comment.timestamp.toLocaleString("en-GB", { timeZone: "UTC" })}
-          </div>
-        </Typography>
-        <Typography variant="h5" component="div">
-          {comment.body}
-        </Typography>
-      </CardContent>
-    </Card>
+    <>
+      <Card className="comment" variant="outlined">
+        <CardContent>
+          <Typography
+            sx={{ fontSize: 12, marginTop: "10px" }}
+            color="text.secondary"
+            gutterBottom
+          >
+            <div>
+              {comment.timestamp &&
+                comment.timestamp.toLocaleString("en-GB", { timeZone: "UTC" })}
+            </div>
+          </Typography>
+          <Typography variant="h5" component="div">
+            {comment.body}
+          </Typography>
+        </CardContent>
+      </Card>
+    </>
   );
 };
