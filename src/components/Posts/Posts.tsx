@@ -7,17 +7,11 @@ import { useSelector } from "react-redux";
 import "./Posts.scss";
 
 export const Posts: React.FC = React.memo(() => {
-  const [postsList, setPostsList] = useState<Post[]>([]);
-
   const { posts, isLoading } = useSelector((state: initialState) => state);
 
   useEffect(() => {
     dispatchStore(PostsActionsCreator.fetchPosts());
   }, []);
-
-  useEffect(() => {
-    setPostsList(posts);
-  }, [posts]);
 
   return (
     <>
@@ -25,9 +19,9 @@ export const Posts: React.FC = React.memo(() => {
         <Loader />
       ) : (
         <>
-          {postsList.length ? (
+          {posts.length ? (
             <ul className="list">
-              {postsList.map((post: Post) => (
+              {posts.map((post: Post) => (
                 <li className="list-item" key={post.id}>
                   <Post post={post} />
                 </li>

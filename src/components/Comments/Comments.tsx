@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { PostsActionsCreator } from "../../redux/actions";
@@ -8,8 +8,6 @@ import { Loader } from "../Loader/Loader";
 import "./Comments.scss";
 
 export const Comments: React.FC = () => {
-  const [commentList, setCommentList] = useState<CommentItem[]>([]);
-
   const { comments, isLoading } = useSelector((state: initialState) => state);
 
   const { id } = useParams();
@@ -18,17 +16,13 @@ export const Comments: React.FC = () => {
     dispatchStore(PostsActionsCreator.fetchComments(id));
   }, []);
 
-  useEffect(() => {
-    setCommentList(comments);
-  }, [comments]);
-
   return (
     <>
       {isLoading ? (
         <Loader />
       ) : (
         <div className="comments">
-          {commentList.length ? (
+          {comments.length ? (
             <ul className="comments-list">
               {comments.map((comment: CommentItem) => (
                 <li key={comment.id} className="comments-item">

@@ -15,7 +15,7 @@ export const ShowPost: React.FC = () => {
 
   useEffect(() => {
     dispatchStore(PostsActionsCreator.fetchPostById(id));
-  }, []);
+  }, [id]);
 
   return (
     <div className="show-section">

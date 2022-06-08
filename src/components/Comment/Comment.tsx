@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Card from "@mui/material/Card";
 import { CardContent, Typography } from "@mui/material";
 import "./Comment.scss";
