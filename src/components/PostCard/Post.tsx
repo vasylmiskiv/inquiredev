@@ -23,17 +23,9 @@ type Props = {
 export const Post: React.FC<Props> = ({ post }) => {
   const [dialogModal, setDialogModal] = useState(false);
 
-  const handleOpenDialog = () => {
-    setDialogModal(true);
-  };
-
-  const handleCloseDialog = () => {
-    setDialogModal(false);
-  };
-
   const onDeletePost = (id: number | string) => {
     dispatchStore(PostsActionsCreator.deletePost(id));
-    handleCloseDialog();
+    setDialogModal(false);
   };
 
   return (
@@ -48,10 +40,10 @@ export const Post: React.FC<Props> = ({ post }) => {
             Do you really want to delete <span>{post.title}</span> post?
           </DialogTitle>
           <DialogActions>
-            <Button onClick={handleCloseDialog}>Disagree</Button>
+            <Button onClick={() => setDialogModal(false)}>Disagree</Button>
             <Button
               color="warning"
-              onClick={() => onDeletePost(post.id)}
+              onClick={() =>  onDeletePost(post.id)}
               autoFocus
             >
               Agree
@@ -92,7 +84,7 @@ export const Post: React.FC<Props> = ({ post }) => {
             </Button>
           </Link>
 
-          <Button color="warning" onClick={handleOpenDialog}>
+          <Button color="warning" onClick={() => setDialogModal(true)}>
             <DeleteOutlinedIcon sx={{ fontSize: 25 }} />
           </Button>
         </CardActions>
