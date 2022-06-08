@@ -36,7 +36,7 @@ export const ShowPost: React.FC = () => {
             Post ID: {id}
           </Typography>
           <Typography variant="h5">{currentPost.title}</Typography>
-          <Typography variant="body2">{currentPost.body}</Typography>
+          <Typography variant="body1">{currentPost.body}</Typography>
         </CardContent>
       </Card>
     </div>

@@ -8,6 +8,7 @@ interface Post {
 interface CommentItem {
   id: string | number | undefined;
   postId: string | number | undefined;
+  userName: string,
   body: string;
   timestamp: string | Date,
 }

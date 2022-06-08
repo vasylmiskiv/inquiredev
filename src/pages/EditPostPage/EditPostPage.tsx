@@ -4,13 +4,15 @@ import { PostsActionsCreator } from "../../redux/actions";
 import { dispatchStore } from "../../redux/store";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { Loader } from '../../components/Loader/Loader';
+import { Loader } from "../../components/Loader/Loader";
 import { useSelector } from "react-redux";
 import "./EditPostPage.scss";
 
 export const EditPostPage: React.FC = () => {
-  const [editTitle, setEditTitle] = useState("");
-  const [editBody, setEditBody] = useState("");
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
+  const [textLimit, setTextLimit] = useState({ title: 3, body: 5 });
+  const [invalidForm, setInvalidForm] = useState(false);
 
   const { id } = useParams();
 
@@ -25,21 +27,32 @@ export const EditPostPage: React.FC = () => {
   }, [id]);
 
   useEffect(() => {
-    setEditTitle(currentPost.title);
-    setEditBody(currentPost.body);
+    setTitle(currentPost.title);
+    setBody(currentPost.body);
   }, [currentPost]);
+
+  const isInputInvalid = (input: string, textLimit: number) => {
+    return input.length < textLimit;
+  };
 
   const onEditPost = (e: React.FormEvent) => {
     e.preventDefault();
+    if (
+      isInputInvalid(title, textLimit.title) ||
+      isInputInvalid(body, textLimit.body)
+    ) {
+      setInvalidForm(true);
+    } else {
+      const editedPost = {
+        ...currentPost,
+        title,
+        body,
+      };
 
-    const editedPost = {
-      ...currentPost,
-      title: editTitle,
-      body: editBody,
-    };
-    dispatchStore(PostsActionsCreator.editPost(editedPost, currentPost.id));
-    dispatchStore(PostsActionsCreator.fetchPosts());
-    navigate("/");
+      dispatchStore(PostsActionsCreator.editPost(editedPost, currentPost.id));
+      dispatchStore(PostsActionsCreator.fetchPosts());
+      navigate("/");
+    }
   };
 
   return (
@@ -57,22 +70,34 @@ export const EditPostPage: React.FC = () => {
           </Button>
           <form className="edit-form" onSubmit={(e) => onEditPost(e)}>
             <TextField
+              error={invalidForm && isInputInvalid(title, textLimit.title)}
               id="outlined-basic"
               label="Edit title"
               variant="outlined"
-              value={editTitle}
+              value={title}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setEditTitle(e.target.value)
+                setTitle(e.target.value)
+              }
+              helperText={
+                invalidForm &&
+                isInputInvalid(title, textLimit.title) &&
+                `At least ${textLimit.title} characters`
               }
             />
             <TextField
+              error={invalidForm && isInputInvalid(body, textLimit.body)}
               label="Edit post"
               multiline
-              rows={4}
+              rows={10}
               variant="outlined"
-              value={editBody}
+              value={body}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setEditBody(e.target.value)
+                setBody(e.target.value)
+              }
+              helperText={
+                invalidForm &&
+                isInputInvalid(body, textLimit.body) &&
+                `At least ${textLimit.body} characters`
               }
             />
             <Button variant="contained" color="primary" type="submit">

@@ -14,13 +14,13 @@ import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 import { dispatchStore } from "../../redux/store";
 import { Link } from "react-router-dom";
 import Dialog from "@mui/material/Dialog";
-import "./PostCard.scss";
+import "./Post.scss";
 
 type Props = {
   post: Post;
 };
 
-export const PostCard: React.FC<Props> = ({ post }) => {
+export const Post: React.FC<Props> = ({ post }) => {
   const [dialogModal, setDialogModal] = useState(false);
 
   const handleOpenDialog = () => {
@@ -60,18 +60,26 @@ export const PostCard: React.FC<Props> = ({ post }) => {
         </Dialog>
       )}
 
-      <Card sx={{ minWidth: 275 }} variant="outlined">
+      <Card
+        sx={{ minWidth: 275, padding: 1 }}
+        variant="outlined"
+        className="post-card"
+      >
         <CardContent>
-          <Typography variant="h5" component="div">
+          <Typography variant="h5" component="div" className="post-card-title">
             {post.title}
           </Typography>
 
           <Typography variant="body2" color="text.secondary">
+            {post.timestamp && `${post.timestamp}`}
+          </Typography>
+
+          <Typography variant="body1" sx={{ marginTop: 2 }}>
             {post.body}
           </Typography>
         </CardContent>
 
-        <CardActions className="card-actions">
+        <CardActions className="card-actions" sx={{ marginTop: 2 }}>
           <Link to={`/post/${post.id}`} className="card-view-post">
             <Button size="medium" variant="outlined">
               View post

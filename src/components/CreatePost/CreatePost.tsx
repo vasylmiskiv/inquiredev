@@ -14,7 +14,7 @@ export const CreatePost: React.FC = () => {
   const [invalidForm, setInvalidForm] = useState(false);
 
   const isInvalidInput = (inputLength: number, textLimit: number) => {
-    return inputLength < textLimit && true;
+    return inputLength < textLimit;
   };
 
   const createPost = (e: React.FormEvent) => {
@@ -42,9 +42,7 @@ export const CreatePost: React.FC = () => {
   return (
     <form className="post-form" onSubmit={(e) => createPost(e)}>
       <TextField
-        error={
-          invalidForm && isInvalidInput(title.length, textLimit.title) && true
-        }
+        error={invalidForm && isInvalidInput(title.length, textLimit.title)}
         id="outlined-basic"
         label="Post title"
         variant="outlined"
@@ -57,12 +55,10 @@ export const CreatePost: React.FC = () => {
         }
       />
       <TextField
-        error={
-          invalidForm && isInvalidInput(body.length, textLimit.body) && true
-        }
+        error={invalidForm && isInvalidInput(body.length, textLimit.body)}
         label="Write something..."
         multiline
-        rows={4}
+        rows={5}
         variant="outlined"
         value={body}
         onChange={(e) => setBody(e.target.value)}

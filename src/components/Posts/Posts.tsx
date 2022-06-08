@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { PostCard } from "../PostCard/PostCard";
+import { Post } from "../PostCard/Post";
 import { Loader } from "../Loader/Loader";
 import { PostsActionsCreator } from "../../redux/actions/index";
 import { dispatchStore } from "../../redux/store";
@@ -29,7 +29,7 @@ export const Posts: React.FC = React.memo(() => {
             <ul className="list">
               {postsList.map((post: Post) => (
                 <li className="list-item" key={post.id}>
-                  <PostCard post={post} />
+                  <Post post={post} />
                 </li>
               ))}
             </ul>
