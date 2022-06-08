@@ -20,6 +20,9 @@ import {
   POST_NEW_COMMENT_FAILED,
   POST_NEW_COMMENT_REQUEST,
   POST_NEW_COMMENT_SUCCESS,
+  GET_RANDOM_IMG_FAILED,
+  GET_RANDOM_IMG_REQUEST,
+  GET_RANDOM_IMG_SUCCESS,
 } from "./types";
 import { Dispatch } from "redux";
 import { API } from "../../helper/api";
@@ -103,7 +106,20 @@ export const PostsActionsCreator = {
       try {
         dispatch(PostsActionsCreator.postNewCommentRequest());
         const response = await API.postNewComment(newComment);
+        console.log(response.regular);
         dispatch(PostsActionsCreator.postNewCommentSuccess(response));
+      } catch (error) {
+        console.error(error);
+        dispatch(PostsActionsCreator.postNewPostFailed(error));
+      }
+    };
+  },
+  fetchRandomImage() {
+    return async (dispatch: Dispatch) => {
+      try {
+        dispatch(PostsActionsCreator.getRandomImageRequest());
+        const response = await API.getRandomImage();
+        dispatch(PostsActionsCreator.getRandomImageSuccess(response));
       } catch (error) {
         console.error(error);
         dispatch(PostsActionsCreator.postNewPostFailed(error));
@@ -171,6 +187,15 @@ export const PostsActionsCreator = {
   }),
   postNewCommentFailed: (error: string) => ({
     type: POST_NEW_COMMENT_FAILED,
+    payload: error,
+  }),
+  getRandomImageRequest: () => ({ type: GET_RANDOM_IMG_REQUEST }),
+  getRandomImageSuccess: (randomImageUrl: string) => ({
+    type: GET_RANDOM_IMG_SUCCESS,
+    payload: randomImageUrl,
+  }),
+  getRandomImageFailed: (error: string) => ({
+    type: GET_RANDOM_IMG_FAILED,
     payload: error,
   }),
 };

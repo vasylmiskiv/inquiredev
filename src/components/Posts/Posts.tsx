@@ -6,7 +6,7 @@ import { dispatchStore } from "../../redux/store";
 import { useSelector } from "react-redux";
 import "./Posts.scss";
 
-export const Posts: React.FC = React.memo(() => {
+export const Posts: React.FC = () => {
   const { posts, isLoading } = useSelector((state: initialState) => state);
 
   useEffect(() => {
@@ -28,10 +28,10 @@ export const Posts: React.FC = React.memo(() => {
               ))}
             </ul>
           ) : (
-            <h2 className="list-empty">List is empty</h2>
+            <h4 className="list-empty">List is empty</h4>
           )}
         </>
       )}
     </>
   );
-});
+};

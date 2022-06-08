@@ -2,15 +2,16 @@ interface Post {
   id: number | string;
   title: string;
   body: string;
+  image?: string;
   timestamp?: string | Date;
 }
 
 interface CommentItem {
   id: string | number | undefined;
   postId: string | number | undefined;
-  userName: string,
+  userName: string;
   body: string;
-  timestamp: string | Date,
+  timestamp: string | Date;
 }
 
 interface initialState {
@@ -18,6 +19,7 @@ interface initialState {
   currentPost: Post;
   comments: CommentItem[];
   isLoading: boolean;
+  randomImage: string;
   error: null | string;
 }
 

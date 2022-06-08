@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Card from "@mui/material/Card";
 import { CardContent, Typography } from "@mui/material";
 import "./Comment.scss";
@@ -13,7 +13,9 @@ export const Comment: React.FC<Props> = ({ comment }) => {
       <Card className="comment" variant="outlined">
         <CardContent>
           <Typography component="div" sx={{ fontSize: 20 }}>
-            {comment.userName.length ? comment.userName : "Anonymous"}
+            {comment.userName && comment.userName.length
+              ? comment.userName
+              : "Anonymous"}
           </Typography>
           <Typography sx={{ fontSize: 12 }} color="text.secondary" gutterBottom>
             {comment.timestamp && (

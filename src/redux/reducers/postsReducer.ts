@@ -17,6 +17,9 @@ import {
   POST_NEW_COMMENT_FAILED,
   POST_NEW_COMMENT_REQUEST,
   POST_NEW_COMMENT_SUCCESS,
+  GET_RANDOM_IMG_FAILED,
+  GET_RANDOM_IMG_REQUEST,
+  GET_RANDOM_IMG_SUCCESS,
 } from "../actions/types";
 
 const initialState: initialState = {
@@ -28,6 +31,7 @@ const initialState: initialState = {
   },
   comments: [],
   isLoading: false,
+  randomImage: "",
   error: null,
 };
 
@@ -42,7 +46,7 @@ export default function postsReducer(state = initialState, action: any) {
       return {
         ...state,
         isLoading: false,
-        posts: action.payload.reverse(),
+        posts: [...action.payload].slice(-10).reverse(),
       };
     case GET_POSTS_FAILED:
       return {
@@ -124,6 +128,20 @@ export default function postsReducer(state = initialState, action: any) {
         comments: [action.payload, ...state.comments],
       };
     case POST_NEW_COMMENT_FAILED:
+      return {
+        ...state,
+        error: action.payload,
+      };
+    case GET_RANDOM_IMG_REQUEST:
+      return {
+        ...state,
+      };
+    case GET_RANDOM_IMG_SUCCESS:
+      return {
+        ...state,
+        randomImage: action.payload,
+      };
+    case GET_RANDOM_IMG_FAILED:
       return {
         ...state,
         error: action.payload,

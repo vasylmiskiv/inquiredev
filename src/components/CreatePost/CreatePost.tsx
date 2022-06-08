@@ -1,39 +1,49 @@
 import { TextField } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import { dispatchStore } from "../../redux/store";
 import { v4 as uuidv4 } from "uuid";
 import { PostsActionsCreator } from "../../redux/actions";
 import moment from "moment";
+import { useSelector } from "react-redux";
 import "./CreatePost.scss";
 
 export const CreatePost: React.FC = () => {
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
+  const [title, setTitle] = useState<string>("");
+  const [body, setBody] = useState<string>("");
   const [textLimit, setTextLimit] = useState({ title: 8, body: 12 });
-  const [invalidForm, setInvalidForm] = useState(false);
+  const [invalidForm, setInvalidForm] = useState<boolean>(false);
 
   const isInvalidInput = (inputLength: number, textLimit: number) => {
     return inputLength < textLimit;
   };
 
+  const { randomImage } = useSelector((state: initialState) => state);
+
+  useEffect(() => {
+    dispatchStore(PostsActionsCreator.fetchRandomImage());
+  }, []);
+
   const createPost = (e: React.FormEvent) => {
     e.preventDefault();
+
     if (
       isInvalidInput(title.length, textLimit.title) ||
       isInvalidInput(body.length, textLimit.body)
     ) {
       setInvalidForm(true);
     } else {
-      const newPost = {
+      const newPost: Post = {
         id: uuidv4(),
         title,
         body,
+        image: randomImage,
         timestamp: moment().format("lll"),
       };
 
       setInvalidForm(false);
       dispatchStore(PostsActionsCreator.addNewPost(newPost));
+      dispatchStore(PostsActionsCreator.fetchRandomImage());
       setTitle("");
       setBody("");
     }
@@ -68,7 +78,12 @@ export const CreatePost: React.FC = () => {
           `At least ${textLimit.body} characters`
         }
       />
-      <Button variant="contained" color="success" type="submit">
+      <Button 
+      variant="contained" 
+      color="success" 
+      type="submit"
+      size="large"
+      >
         Create a post
       </Button>
     </form>

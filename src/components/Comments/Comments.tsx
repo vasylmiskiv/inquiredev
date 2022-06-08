@@ -14,10 +14,11 @@ export const Comments: React.FC = () => {
 
   useEffect(() => {
     dispatchStore(PostsActionsCreator.fetchComments(id));
-  }, []);
+  }, [id]);
 
   return (
     <>
+      <h3>Comments: {comments ? comments.length : 0}</h3>
       {isLoading ? (
         <Loader />
       ) : (

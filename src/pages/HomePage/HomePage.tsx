@@ -1,13 +1,13 @@
 import React from "react";
 import { Posts } from "../../components/Posts/Posts";
 import { CreatePost } from "../../components/CreatePost/CreatePost";
+import "./HomePage.scss";
 
 export const HomePage: React.FC = () => {
   return (
-    <>
-      <h1>Posts</h1>
+    <div className="home-page">
       <CreatePost />
       <Posts />
-    </>
+    </div>
   );
 };

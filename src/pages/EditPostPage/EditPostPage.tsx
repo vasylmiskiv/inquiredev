@@ -9,10 +9,10 @@ import { useSelector } from "react-redux";
 import "./EditPostPage.scss";
 
 export const EditPostPage: React.FC = () => {
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
+  const [title, setTitle] = useState<string>("");
+  const [body, setBody] = useState<string>("");
   const [textLimit, setTextLimit] = useState({ title: 3, body: 5 });
-  const [invalidForm, setInvalidForm] = useState(false);
+  const [invalidForm, setInvalidForm] = useState<boolean>(false);
 
   const { id } = useParams();
 
