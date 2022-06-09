@@ -1,10 +1,11 @@
-const url = "https://bloggy-api.herokuapp.com";
+const BASE_URL = "https://bloggy-api.herokuapp.com";
 const UNSPLASH_KEY = "IO3modUlr3ZEz1bvj8wCesV_Jw6zGKvBuXxNTSLgBKA";
-const unsplashUrl = `https://api.unsplash.com`;
+const UNSPLASH_URL = `https://api.unsplash.com`;
 
 const request = async (
   endPoint: string,
-  params: Params = { method: "GET" }
+  params: Params = { method: "GET" },
+  url = BASE_URL
 ) => {
   try {
     const response = await fetch(`${url}${endPoint}`, params);
@@ -15,24 +16,6 @@ const request = async (
     }
 
     return data;
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-const unsplashRequest = async (
-  endPoint: string,
-  params: Params = { method: "GET" }
-) => {
-  try {
-    const response = await fetch(`${unsplashUrl}${endPoint}`, params);
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(`Error with request with status${response.status}`);
-    }
-
-    return data.urls.small;
   } catch (error) {
     console.error(error);
   }
@@ -70,5 +53,6 @@ export const API = {
       body: JSON.stringify(newComment),
     }),
   getRandomImage: () =>
-    unsplashRequest(`/photos/random?client_id=${UNSPLASH_KEY}`),
+    request(`/photos/random?client_id=${UNSPLASH_KEY}`, {method: 'GET'}, UNSPLASH_URL)
+      .then(data => data.urls.small),
 };

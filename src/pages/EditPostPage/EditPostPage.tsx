@@ -11,7 +11,7 @@ import "./EditPostPage.scss";
 export const EditPostPage: React.FC = () => {
   const [title, setTitle] = useState<string>("");
   const [body, setBody] = useState<string>("");
-  const [textLimit, setTextLimit] = useState({ title: 3, body: 5 });
+  const [textLimit, _setTextLimit] = useState({ title: 3, body: 5 });
   const [invalidForm, setInvalidForm] = useState<boolean>(false);
 
   const { id } = useParams();
@@ -37,6 +37,7 @@ export const EditPostPage: React.FC = () => {
 
   const onEditPost = (e: React.FormEvent) => {
     e.preventDefault();
+    
     if (
       isInputInvalid(title, textLimit.title) ||
       isInputInvalid(body, textLimit.body)
@@ -50,62 +51,59 @@ export const EditPostPage: React.FC = () => {
       };
 
       dispatchStore(PostsActionsCreator.editPost(editedPost, currentPost.id));
-      dispatchStore(PostsActionsCreator.fetchPosts());
       navigate("/");
     }
   };
 
   return (
-    <>
+    <div className="edit-section">
+      <Button
+        variant="outlined"
+        className="edit-section-goback"
+        onClick={() => navigate("/")}
+      >
+        Go back
+      </Button>
       {isLoading ? (
         <Loader />
       ) : (
-        <div className="edit-section">
-          <Button
+        <form className="edit-form" onSubmit={(e) => onEditPost(e)}>
+          <TextField
+            error={invalidForm && isInputInvalid(title, textLimit.title)}
+            id="outlined-basic"
+            label="Edit title"
             variant="outlined"
-            className="edit-section-goback"
-            onClick={() => navigate("/")}
-          >
-            Go back
+            value={title}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setTitle(e.target.value)
+            }
+            helperText={
+              invalidForm &&
+              isInputInvalid(title, textLimit.title) &&
+              `At least ${textLimit.title} characters`
+            }
+          />
+          <TextField
+            error={invalidForm && isInputInvalid(body, textLimit.body)}
+            label="Edit post"
+            multiline
+            rows={10}
+            variant="outlined"
+            value={body}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setBody(e.target.value)
+            }
+            helperText={
+              invalidForm &&
+              isInputInvalid(body, textLimit.body) &&
+              `At least ${textLimit.body} characters`
+            }
+          />
+          <Button variant="contained" color="primary" type="submit">
+            Edit a post
           </Button>
-          <form className="edit-form" onSubmit={(e) => onEditPost(e)}>
-            <TextField
-              error={invalidForm && isInputInvalid(title, textLimit.title)}
-              id="outlined-basic"
-              label="Edit title"
-              variant="outlined"
-              value={title}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setTitle(e.target.value)
-              }
-              helperText={
-                invalidForm &&
-                isInputInvalid(title, textLimit.title) &&
-                `At least ${textLimit.title} characters`
-              }
-            />
-            <TextField
-              error={invalidForm && isInputInvalid(body, textLimit.body)}
-              label="Edit post"
-              multiline
-              rows={10}
-              variant="outlined"
-              value={body}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setBody(e.target.value)
-              }
-              helperText={
-                invalidForm &&
-                isInputInvalid(body, textLimit.body) &&
-                `At least ${textLimit.body} characters`
-              }
-            />
-            <Button variant="contained" color="primary" type="submit">
-              Edit a post
-            </Button>
-          </form>
-        </div>
+        </form>
       )}
-    </>
+    </div>
   );
 };

@@ -128,7 +128,10 @@ export const PostsActionsCreator = {
   },
 
   getPostsRequest: () => ({ type: GET_POSTS_REQUEST }),
-  getPostsSuccess: (payload: Post[]) => ({ type: GET_POSTS_SUCCESS, payload }),
+  getPostsSuccess: (response: Post[]) => ({
+    type: GET_POSTS_SUCCESS,
+    payload: response,
+  }),
   getPostsFailed: (error: string) => ({
     type: GET_POSTS_FAILED,
     payload: error,

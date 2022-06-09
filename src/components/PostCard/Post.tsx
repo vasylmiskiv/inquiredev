@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -93,7 +93,10 @@ export const Post: React.FC<Props> = ({ post }) => {
           </Typography>
         </CardContent>
 
-        <CardActions className="card-actions" sx={{ marginTop: 2, marginLeft: 1 }}>
+        <CardActions
+          className="card-actions"
+          sx={{ marginTop: 2, marginLeft: 1 }}
+        >
           <Link to={`/post/${post.id}`} className="card-view-post">
             <Button size="medium" variant="outlined">
               View post

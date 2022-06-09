@@ -11,7 +11,7 @@ import "./CreatePost.scss";
 export const CreatePost: React.FC = () => {
   const [title, setTitle] = useState<string>("");
   const [body, setBody] = useState<string>("");
-  const [textLimit, setTextLimit] = useState({ title: 8, body: 12 });
+  const [textLimit, _setTextLimit] = useState({ title: 8, body: 12 });
   const [invalidForm, setInvalidForm] = useState<boolean>(false);
 
   const isInvalidInput = (inputLength: number, textLimit: number) => {
@@ -78,12 +78,7 @@ export const CreatePost: React.FC = () => {
           `At least ${textLimit.body} characters`
         }
       />
-      <Button 
-      variant="contained" 
-      color="success" 
-      type="submit"
-      size="large"
-      >
+      <Button variant="contained" color="success" type="submit" size="large">
         Create a post
       </Button>
     </form>

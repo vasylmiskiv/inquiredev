@@ -5,6 +5,9 @@ import {
   POST_NEW_POST_SUCCESS,
   POST_NEW_POST_REQUEST,
   POST_NEW_POST_FAILED,
+  PUT_POST_REQUEST,
+  PUT_POST_FAILED,
+  PUT_POST_SUCCESS,
   DELETE_POST_FAILED,
   DELETE_POST_REQUEST,
   DELETE_POST_SUCCESS,
@@ -46,7 +49,9 @@ export default function postsReducer(state = initialState, action: any) {
       return {
         ...state,
         isLoading: false,
-        posts: [...action.payload].slice(-10).reverse(),
+        posts: action.payload
+          .filter((post: Post) => post.title && post.body)
+          .reverse(),
       };
     case GET_POSTS_FAILED:
       return {
@@ -81,6 +86,22 @@ export default function postsReducer(state = initialState, action: any) {
         posts: [action.payload, ...state.posts],
       };
     case POST_NEW_POST_FAILED:
+      return {
+        ...state,
+        error: action.payload,
+      };
+    case PUT_POST_REQUEST:
+      return {
+        ...state,
+      };
+    case PUT_POST_SUCCESS:
+      return {
+        ...state,
+        posts: state.posts.map((post) =>
+          post.id === action.payload.id ? action.payload : post
+        ),
+      };
+    case PUT_POST_FAILED:
       return {
         ...state,
         error: action.payload,
