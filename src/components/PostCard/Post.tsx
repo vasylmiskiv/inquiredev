@@ -72,7 +72,7 @@ export const Post: React.FC<Props> = ({ post }) => {
             component="img"
             height="194"
             image={post.image}
-            alt="Paella dish"
+            alt="image"
           />
         )}
         <CardContent>

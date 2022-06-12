@@ -11,7 +11,7 @@ export const Posts: React.FC = () => {
   const [visiblePosts, setVisiblePosts] = useState<Post[]>([]);
   const [lastItem, setLastItem] = useState<number>(5);
 
-  const { posts } = useSelector((state: initialState) => state);
+  const { posts, isLoading } = useSelector((state: initialState) => state);
 
   useEffect(() => {
     dispatchStore(PostsActionsCreator.fetchPosts());
@@ -27,11 +27,11 @@ export const Posts: React.FC = () => {
 
   return (
     <>
-      {!visiblePosts.length ? (
+      {isLoading ? (
         <Loader />
       ) : (
         <>
-          {visiblePosts.length ? (
+          {posts.length ? (
             <ul className="list">
               {visiblePosts.map((post: Post) => (
                 <li className="list-item" key={post.id}>
