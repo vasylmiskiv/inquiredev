@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HomePage } from "./pages/HomePage/HomePage";
-import { PostPage } from "./pages/PostPage/PostPage";
+import { ShowPostPage } from "./pages/ShowPostPage/ShowPostPage";
 import { EditPostPage } from "./pages/EditPostPage/EditPostPage";
 import { NotFoundPage } from "./pages/NotFoundPage/NotFoundPage";
 import { Provider } from "react-redux";
@@ -17,16 +17,15 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Container maxWidth="md">
         <BrowserRouter>
-          <Routes>
+          <Routes> 
             <Route path="/" element={<HomePage />} />
-            <Route path="/post/:id" element={<PostPage />} />
+            <Route path="/post/:id" element={<ShowPostPage />} />
             <Route path="/edit/:id" element={<EditPostPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>
-      </Container>
+     
     </Provider>
   </React.StrictMode>
 );

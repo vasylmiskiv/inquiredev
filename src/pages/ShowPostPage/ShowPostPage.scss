@@ -1,19 +1,12 @@
-.edit-section {
+.post-page {
   padding: 45px 0;
-  height: 100vh;
+  min-height: 100vh;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
 }
 
-.edit-content {
+.show-content {
   margin-top: 45px;
-}
-
-.edit-form {
-  margin-top: 30px;
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
 }

@@ -57,5 +57,5 @@ export const API = {
       `/photos/random?client_id=${UNSPLASH_KEY}`,
       { method: "GET" },
       UNSPLASH_URL
-    ).then((data) => data.urls.small),
+    ).then((data) => data.urls.regular),
 };

@@ -10,7 +10,11 @@ type Props = {
 export const Comment: React.FC<Props> = ({ comment }) => {
   return (
     <>
-      <Card className="comment" variant="outlined">
+      <Card
+        className="comment"
+        variant="outlined"
+        style={{ backgroundColor: "rgba(255, 255, 255, 0.3)" }}
+      >
         <CardContent>
           <Typography component="div" sx={{ fontSize: 20 }}>
             {comment.userName && comment.userName.length

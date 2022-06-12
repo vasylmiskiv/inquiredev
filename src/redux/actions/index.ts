@@ -57,6 +57,10 @@ export const PostsActionsCreator = {
       try {
         dispatch(PostsActionsCreator.putPostRequest());
         const response = await API.putEditedPost(editedPost, id);
+        const updatedPosts = [...JSON.parse(window.localStorage.posts)].map(
+          (post) => (post.id ? response : post)
+        );
+        window.localStorage.setItem("posts", JSON.stringify(updatedPosts));
         dispatch(PostsActionsCreator.putPostSuccess(response));
       } catch (error) {
         console.error(error);
