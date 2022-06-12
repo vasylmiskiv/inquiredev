@@ -10,7 +10,7 @@ import "./CreateComment.scss";
 export const CreateComment: React.FC = () => {
   const [userName, setUserName] = useState("");
   const [comment, setComment] = useState("");
-  const [textLimit, setTextLimit] = useState({ comment: 8 });
+  const [textLimit, _setTextLimit] = useState({ comment: 8 });
   const [invalidForm, setInvalidForm] = useState(false);
 
   const isInvalidInput = (inputLength: number, textLimit: number) => {

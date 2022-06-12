@@ -8,9 +8,6 @@ import {
   DELETE_POST_FAILED,
   DELETE_POST_REQUEST,
   DELETE_POST_SUCCESS,
-  GET_POST_BY_ID_FAILED,
-  GET_POST_BY_ID_REQUEST,
-  GET_POST_BY_ID_SUCCESS,
   PUT_POST_FAILED,
   PUT_POST_REQUEST,
   PUT_POST_SUCCESS,
@@ -33,22 +30,11 @@ export const PostsActionsCreator = {
       try {
         dispatch(PostsActionsCreator.getPostsRequest());
         const response = await API.getPosts();
+        window.localStorage.setItem("posts", JSON.stringify(response));
         dispatch(PostsActionsCreator.getPostsSuccess(response));
       } catch (error) {
         console.error(error);
         dispatch(PostsActionsCreator.getPostsFailed(error));
-      }
-    };
-  },
-  fetchPostById(id: number | string | undefined) {
-    return async (dispatch: Dispatch) => {
-      try {
-        dispatch(PostsActionsCreator.getPostByIdRequest());
-        const response = await API.getPostById(id);
-        dispatch(PostsActionsCreator.getPostByIdSuccess(response));
-      } catch (error) {
-        console.error(error);
-        dispatch(PostsActionsCreator.getPostByIdFailed(error));
       }
     };
   },
@@ -57,6 +43,8 @@ export const PostsActionsCreator = {
       try {
         dispatch(PostsActionsCreator.postNewPostRequest());
         const response = await API.postNewPost(newPost);
+        const posts = [...JSON.parse(window.localStorage.posts), response];
+        window.localStorage.setItem("posts", JSON.stringify(posts));
         dispatch(PostsActionsCreator.postNewPostSuccess(response));
       } catch (error) {
         console.error(error);
@@ -106,7 +94,6 @@ export const PostsActionsCreator = {
       try {
         dispatch(PostsActionsCreator.postNewCommentRequest());
         const response = await API.postNewComment(newComment);
-        console.log(response.regular);
         dispatch(PostsActionsCreator.postNewCommentSuccess(response));
       } catch (error) {
         console.error(error);
@@ -134,16 +121,6 @@ export const PostsActionsCreator = {
   }),
   getPostsFailed: (error: string) => ({
     type: GET_POSTS_FAILED,
-    payload: error,
-  }),
-
-  getPostByIdRequest: () => ({ type: GET_POST_BY_ID_REQUEST }),
-  getPostByIdSuccess: (currentPost: Post) => ({
-    type: GET_POST_BY_ID_SUCCESS,
-    payload: currentPost,
-  }),
-  getPostByIdFailed: (error: string) => ({
-    type: GET_POST_BY_ID_FAILED,
     payload: error,
   }),
 

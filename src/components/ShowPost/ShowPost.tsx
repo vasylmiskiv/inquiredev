@@ -1,23 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Card, CardContent, Typography } from "@mui/material";
-import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { PostsActionsCreator } from "../../redux/actions";
-import { dispatchStore } from "../../redux/store";
-import { Loader } from "../Loader/Loader";
 import "./ShowPost.scss";
 
 export const ShowPost: React.FC = () => {
-  const { currentPost, isLoading } = useSelector(
-    (state: initialState) => state
-  );
+  const [currentPost, setCurrentPost] = useState<Post | any>({
+    title: "",
+    body: "",
+  });
 
   const { id } = useParams();
 
   const navigate = useNavigate();
 
+  const { title, body } = currentPost;
+
   useEffect(() => {
-    dispatchStore(PostsActionsCreator.fetchPostById(id));
+    setCurrentPost(
+      JSON.parse(window.localStorage.posts).find(
+        (post: Post) => post.id.toString() === id
+      )
+    );
   }, [id]);
 
   return (
@@ -29,23 +32,19 @@ export const ShowPost: React.FC = () => {
       >
         Go back
       </Button>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <Card className="show-section-post">
-          <CardContent>
-            <Typography
-              sx={{ fontSize: 12, marginTop: "10px" }}
-              color="text.secondary"
-              gutterBottom
-            >
-              Post ID: {id}
-            </Typography>
-            <Typography variant="h5">{currentPost.title}</Typography>
-            <Typography variant="body1">{currentPost.body}</Typography>
-          </CardContent>
-        </Card>
-      )}
+      <Card className="show-section-post">
+        <CardContent>
+          <Typography
+            sx={{ fontSize: 12, marginTop: "10px" }}
+            color="text.secondary"
+            gutterBottom
+          >
+            Post ID: {id}
+          </Typography>
+          <Typography variant="h5">{title}</Typography>
+          <Typography variant="body1">{body}</Typography>
+        </CardContent>
+      </Card>
     </div>
   );
 };

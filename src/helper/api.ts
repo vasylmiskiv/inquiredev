@@ -1,6 +1,6 @@
 const BASE_URL = "https://bloggy-api.herokuapp.com";
 const UNSPLASH_KEY = "IO3modUlr3ZEz1bvj8wCesV_Jw6zGKvBuXxNTSLgBKA";
-const UNSPLASH_URL = `https://api.unsplash.com`;
+const UNSPLASH_URL = "https://api.unsplash.com";
 
 const request = async (
   endPoint: string,
@@ -53,6 +53,9 @@ export const API = {
       body: JSON.stringify(newComment),
     }),
   getRandomImage: () =>
-    request(`/photos/random?client_id=${UNSPLASH_KEY}`, {method: 'GET'}, UNSPLASH_URL)
-      .then(data => data.urls.small),
+    request(
+      `/photos/random?client_id=${UNSPLASH_KEY}`,
+      { method: "GET" },
+      UNSPLASH_URL
+    ).then((data) => data.urls.small),
 };

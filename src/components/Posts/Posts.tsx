@@ -40,7 +40,7 @@ export const Posts: React.FC = () => {
               ))}
             </ul>
           ) : (
-            <h4 className="list-empty">List is empty</h4>
+            <div className="list-empty">List is empty</div>
           )}
           {visiblePosts.length !== posts.length && (
             <Button

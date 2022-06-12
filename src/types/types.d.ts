@@ -34,3 +34,8 @@ interface Params {
   };
   body?: string;
 }
+
+interface textLimit {
+  title: number,
+  body: number,
+}

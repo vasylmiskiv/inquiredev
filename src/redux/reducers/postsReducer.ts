@@ -11,9 +11,6 @@ import {
   DELETE_POST_FAILED,
   DELETE_POST_REQUEST,
   DELETE_POST_SUCCESS,
-  GET_POST_BY_ID_FAILED,
-  GET_POST_BY_ID_REQUEST,
-  GET_POST_BY_ID_SUCCESS,
   GET_COMMENTS_FAILED,
   GET_COMMENTS_REQUEST,
   GET_COMMENTS_SUCCESS,
@@ -54,23 +51,6 @@ export default function postsReducer(state = initialState, action: any) {
           .reverse(),
       };
     case GET_POSTS_FAILED:
-      return {
-        ...state,
-        isLoading: false,
-        error: action.payload,
-      };
-    case GET_POST_BY_ID_REQUEST:
-      return {
-        ...state,
-        isLoading: true,
-      };
-    case GET_POST_BY_ID_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-        currentPost: action.payload,
-      };
-    case GET_POST_BY_ID_FAILED:
       return {
         ...state,
         isLoading: false,
